@@ -20,5 +20,4 @@ if results:
         print(result['name'])
         print(result['films'])
         print(result['url'])
-else:
-    print('No se encontraron resultados para su búsqueda.')
+
