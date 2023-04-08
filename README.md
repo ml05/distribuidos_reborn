@@ -31,10 +31,3 @@
   http://localhost:5000/search?query=luke
   ```
 
-- Para usar gRPC
-  ```
-  pip install grpcio
-  pip install grpcio-tools
-  pip install protobuf
-  ```
-  
