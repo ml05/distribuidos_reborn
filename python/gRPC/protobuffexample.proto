@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package mypackage;
+
+service Data {
+    rpc GetWeatherData(Empty) returns (WeatherResponse);
+    rpc GetCoinsData(Empty) returns (CoinsResponse);
+}
+
+message WeatherResponse {
+    int32 id = 1;
+    string temp = 2;
+    string time = 3;
+    string date = 4;
+}
+
+message CoinsResponse {
+    int32 id = 1;
+    string dolar = 2;
+    string euro = 3;
+    string uf = 4;
+    string time = 5;
+    string date = 6;
+}
+
+message Empty {}
