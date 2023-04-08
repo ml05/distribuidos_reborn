@@ -3,6 +3,7 @@ import swapi_pb2
 import swapi_pb2_grpc
 import redis
 import requests
+from concurrent import futures
 
 redis_host = 'localhost'
 redis_port = 6379
@@ -11,7 +12,7 @@ class SwapiService(swapi_pb2_grpc.SwapiServiceServicer):
     def __init__(self):
         self.redis = redis.StrictRedis(host=redis_host, port=redis_port, db=0)
 
-    def get_person(self, request, context):
+    def GetPerson(self, request, context):
         # Verificar si la información solicitada está en la caché de Redis
         person_key = f"person:{request.id}"
         person = self.redis.get(person_key)
