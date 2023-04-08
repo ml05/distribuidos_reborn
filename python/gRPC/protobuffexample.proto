@@ -1,26 +1,21 @@
 syntax = "proto3";
 
-package mypackage;
+package search;
 
-service Data {
-    rpc GetWeatherData(Empty) returns (WeatherResponse);
-    rpc GetCoinsData(Empty) returns (CoinsResponse);
+service SearchService {
+  rpc Search(SearchRequest) returns (SearchResponse) {}
 }
 
-message WeatherResponse {
-    int32 id = 1;
-    string temp = 2;
-    string time = 3;
-    string date = 4;
+message SearchRequest {
+  string query = 1;
 }
 
-message CoinsResponse {
-    int32 id = 1;
-    string dolar = 2;
-    string euro = 3;
-    string uf = 4;
-    string time = 5;
-    string date = 6;
+message SearchResponse {
+  repeated PersonResult results = 1;
 }
 
-message Empty {}
+message PersonResult {
+  string name = 1;
+  string birth_year = 2;
+  string gender = 3;
+}
