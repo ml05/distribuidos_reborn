@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package swapi;
+
+service SwapiService {
+  rpc GetPerson(GetPersonRequest) returns (Person) {}
+}
+
+message GetPersonRequest {
+  int32 id = 1;
+}
+
+message Person {
+  int32 id = 1;
+  string name = 2;
+  string birth_year = 3;
+  string gender = 4;
+  repeated string films = 5;
+}

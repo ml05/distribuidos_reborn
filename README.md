@@ -31,13 +31,4 @@
   http://localhost:5000/search?query=luke
   ```
 
-- Para gRPC
-correr server.py
-correr client.py
 
-para modificar inputs cambiar id en linea 8, Ejemplo
-```
-response = stub.GetPerson(swapi_pb2.GetPersonRequest(id=1))
-response = stub.GetPerson(swapi_pb2.GetPersonRequest(id=2))
-response = stub.GetPerson(swapi_pb2.GetPersonRequest(id=3))
-```

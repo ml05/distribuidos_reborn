@@ -1,5 +1,7 @@
 import requests
 import json
+import time
+from flask import Flask, request, jsonify
 
 def searchPerson(query):
     # realiza la consulta a la API
@@ -12,13 +14,19 @@ def searchPerson(query):
     else:
         return None
 
-# este parametro se puede cambiar para probar el cache con otras consultas
-query = 'luke'
-results = searchPerson(query)
-if results:
-    for result in results['results']:
-        print(result['name'])
-        print(result['films'])
-        print(result['url'])
-else:
-    print('No se encontraron resultados para su búsqueda.')
+# REST API
+app = Flask(__name__) # crea instancia FLASK
+
+@app.route('/search', methods=['GET']) #Define la ruta para la API REST de busqueda
+def search():
+    query = request.args.get('query') # obtiene la query de la solicitud GET
+    if not query:
+        return jsonify({'error': 'Parametro de busqueda requerido'}), 400 # si no se especifica paramentro "error"
+    results = searchPerson(query) #hace busqueda
+    if results:
+        return jsonify(results) # si se encuentra, retorna json
+    else:
+        return jsonify({'error': 'No se encontraron resultados para su búsqueda.'}), 404 #error si no se encuentra
+
+if __name__ == '__main__': #ejecuta la aplicacion si se ejecuta el archivo
+    app.run()
