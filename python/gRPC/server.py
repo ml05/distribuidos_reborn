@@ -32,13 +32,15 @@ class SwapiService(swapi_pb2_grpc.SwapiServiceServicer):
 
         # Parsear la respuesta JSON y crear un objeto Person
         data = response.json()
+        if 'results' in data:
+            data = data['results'][0]
         person = swapi_pb2.Person(
-            id=data['id'],
             name=data['name'],
             birth_year=data['birth_year'],
             gender=data['gender'],
             films=data['films'],
         )
+
 
         # Guardar la información en la caché de Redis
         self.redis.set(person_key, person.SerializeToString())
