@@ -34,7 +34,7 @@ def search():
     query = request.args.get('query') # obtiene la query de la solicitud GET
     if not query:
         return jsonify({'error': 'Parametro de busqueda requerido'}), 400 # si no se especifica paramentro "error"
-    results = searchPerson(query) #hace busqueda
+    results = searchPerson('luke') #hace busqueda
     if results:
         return jsonify(results) # si se encuentra, retorna json
     else:
