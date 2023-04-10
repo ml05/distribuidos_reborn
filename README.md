@@ -25,10 +25,10 @@
   ```
   Luego seguir los siguientes pasos:
   1. Correr el codigo
-  2. Copiar la direccion URL generada (URL por defecto http://localhost:5000/)
-  3. Dentro de Postman hacer una peticion GET con la URL agregando search?query= {query} de la siguiente manera:
+  2. Copiar la direccion URL generada (URL por defecto http://localhost:5000/ o http://127.0.0.1:5000/)
+  3. Dentro de Postman hacer una peticion GET con la URL agregando search?field={field}&query={query} de la siguiente manera:
   ```
-  http://localhost:5000/search?query=luke
+  http://localhost:5000/search?field=people&query=luke
   ```
 
 - Para gRPC

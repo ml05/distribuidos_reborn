@@ -9,14 +9,14 @@ redis_client = redis.Redis(host='localhost', port=6379, db=0)
 CACHE_EXPIRATION_TIME = 300  # en segundos
 
 @lru_cache(maxsize=128)
-def searchPerson(query):
+def searchField(field, query):
     # pregunta a REDIS si hay resultados para la búsqueda
     cached_results = redis_client.get(query)
     # si existen los resultados, se retornan
     if cached_results:
         return json.loads(cached_results)
     # resultados obtenidos de la API
-    url = f'https://swapi.dev/api/people/?search={query}'
+    url = f'https://swapi.dev/api/{field}/?search={query}'
     response = requests.get(url)
     # si la respuesta es exitosa, se almacenan en REDIS
     if response.status_code == 200:
@@ -31,10 +31,11 @@ app = Flask(__name__) # crea instancia FLASK
 
 @app.route('/search', methods=['GET']) #Define la ruta para la API REST de busqueda
 def search():
+    field = request.args.get('field') # obtiene el campo de la solicitud GET
     query = request.args.get('query') # obtiene la query de la solicitud GET
     if not query:
         return jsonify({'error': 'Parametro de busqueda requerido'}), 400 # si no se especifica paramentro "error"
-    results = searchPerson('luke') #hace busqueda
+    results = searchField(field, query) #hace busqueda
     if results:
         return jsonify(results) # si se encuentra, retorna json
     else:
