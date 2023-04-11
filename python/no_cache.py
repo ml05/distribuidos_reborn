@@ -1,9 +1,11 @@
 import requests
 import json
+import time
+from flask import Flask, request, jsonify
 
-def searchPerson(query):
+def searchPerson(field, query):
     # realiza la consulta a la API
-    url = f'https://swapi.dev/api/people/?search={query}'
+    url = f'https://swapi.dev/api/{field}/?search={query}'
     response = requests.get(url)
     # si la consulta es exitosa la retorna
     if response.status_code == 200:
