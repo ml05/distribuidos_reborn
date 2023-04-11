@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package swapi;
+
+service SwapiService {
+  rpc GetPerson(GetPersonRequest) returns (Person) {}
+  rpc GetSpecies(GetSpeciesRequest) returns (Species) {}
+  rpc GetPlanet(GetPlanetRequest) returns (Planet) {}
+}
+
+message GetPersonRequest {
+  int32 id = 1;
+}
+
+message GetSpeciesRequest {
+  int32 id = 1;
+}
+
+message GetPlanetRequest {
+  int32 id = 1;
+}
+
+message Person {
+  int32 id = 1;
+  string name = 2;
+  string birth_year = 3;
+  string gender = 4;
+}
+
+message Species {
+  int32 id = 1;
+  string name = 2;
+  string classification = 3;
+  string average_lifespan = 4;
+  string language = 5;
+}
+
+message Planet {
+  int32 id = 1;
+  string name = 2;
+  string diameter = 3;
+  string climate = 4;
+}
