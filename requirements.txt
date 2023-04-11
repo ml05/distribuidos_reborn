@@ -9,6 +9,7 @@ Jinja2==3.1.2
 MarkupSafe==2.1.2
 numpy==1.24.2
 pandas==2.0.0
+protobuf==4.22.1
 pycairo==1.23.0
 Pygments==2.14.0
 PyGObject==3.44.1
