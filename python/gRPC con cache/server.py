@@ -41,7 +41,7 @@ class SwapiService(swapi_pb2_grpc.SwapiServiceServicer):
         )
 
         # Guardar la información en la caché de Redis
-        self.redis.set(person_key, person.SerializeToString())
+        self.redis.set(person_key, person.SerializeToString(), ex=300)
 
         return person
 
@@ -76,7 +76,7 @@ class SwapiService(swapi_pb2_grpc.SwapiServiceServicer):
         )
 
         # Guardar la información en la caché de Redis
-        self.redis.set(species_key, species.SerializeToString())
+        self.redis.set(species_key, species.SerializeToString(), ex=300)
 
         return species
 
@@ -107,7 +107,7 @@ class SwapiService(swapi_pb2_grpc.SwapiServiceServicer):
         )
 
         # Guardar la información en la caché de Redis
-        self.redis.set(planet_key, planet.SerializeToString())
+        self.redis.set(planet_key, planet.SerializeToString(), ex=300)
 
         return planet
 
