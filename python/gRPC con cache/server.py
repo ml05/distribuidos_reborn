@@ -5,10 +5,22 @@ import redis
 import requests
 from concurrent import futures
 
+redis_host = 'localhost'
+redis_port = 6379
+
 class SwapiService(swapi_pb2_grpc.SwapiServiceServicer):
+    def __init__(self):
+        self.redis = redis.StrictRedis(host=redis_host, port=redis_port, db=0)
 
     def GetPerson(self, request, context):
+        # Verificar si la información solicitada está en la caché de Redis
+        person_key = f"person:{request.id}"
+        person = self.redis.get(person_key)
+        if person is not None:
+            person = swapi_pb2.Person.FromString(person)
+            return person
 
+        # Si la información no está en la caché de Redis, hacer una solicitud HTTP a la API de Star Wars
         url = f"https://swapi.dev/api/people/{request.id}/"
         response = requests.get(url)
 
@@ -28,9 +40,18 @@ class SwapiService(swapi_pb2_grpc.SwapiServiceServicer):
             gender=data['gender'],
         )
 
+        # Guardar la información en la caché de Redis
+        self.redis.set(person_key, person.SerializeToString())
+
         return person
 
     def GetSpecies(self, request, context):
+        # Verificar si la información solicitada está en la caché de Redis
+        species_key = f"species:{request.id}"
+        species = self.redis.get(species_key)
+        if species is not None:
+            species = swapi_pb2.Species.FromString(species)
+            return species
 
         # Si la información no está en la caché de Redis, hacer una solicitud HTTP a la API de Star Wars
         url = f"https://swapi.dev/api/species/{request.id}/"
@@ -54,9 +75,18 @@ class SwapiService(swapi_pb2_grpc.SwapiServiceServicer):
             
         )
 
+        # Guardar la información en la caché de Redis
+        self.redis.set(species_key, species.SerializeToString())
+
         return species
 
     def GetPlanet(self, request, context):
+        # Verificar si la información solicitada está en la caché de Redis
+        planet_key = f"planet:{request.id}"
+        planet = self.redis.get(planet_key)
+        if planet is not None:
+            planet = swapi_pb2.Planet.FromString(planet)
+            return planet
 
         # Si la información no está en la caché de Redis, hacer una solicitud HTTP a la API de Star Wars
         url = f"https://swapi.dev/api/planets/{request.id}/"
@@ -75,6 +105,9 @@ class SwapiService(swapi_pb2_grpc.SwapiServiceServicer):
             diameter=data['diameter'],
             climate=data['climate']
         )
+
+        # Guardar la información en la caché de Redis
+        self.redis.set(planet_key, planet.SerializeToString())
 
         return planet
 
