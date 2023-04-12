@@ -19,20 +19,18 @@ Limites de la API Star Wars:
   ```
   pip install redis
   pip install simplejson
+  pip install flask
   python -m pip install requests
   ```
 
-
-- Para utilizar REST con Postman
-  ```
-  pip install flask
-  ```
-  Luego seguir los siguientes pasos:
- 1. Correr el codigo
- 2. Copiar la direccion URL generada (URL por defecto http://localhost:5000/ o http://127.0.0.1:5000/)
- 3. Dentro de Postman hacer una peticion GET con la URL agregando search?field={field}&query={query} de la siguiente manera:
+-Para postman con REST
+ 
+ 1. Correr el el archivo
+ 2. Copiar la direccion URL generada (URL por defecto http://localhost:5000/ o http://127.0.0.1:5000/) 
+ 3. Dentro de Postman hacer una peticion GET con la URL copiada agregando search?field={field}&query={query} de la siguiente manera:
   ```
   http://localhost:5000/search?field=people&query=luke
+  
   ```
 
 - Para gRPC (solo puede haber 1 server corriendo a la vez)
@@ -47,10 +45,10 @@ python clientAuto
 python clientIndividual
 ```
 
-para modificar inputs en clientIndividual cambiar id en linea 8, Ejemplo
+-para modificar inputs en clientIndividual cambiar id en linea 8, Ejemplo
 ```
 response = stub.GetPerson(swapi_pb2.GetPersonRequest(id=1))
 response = stub.GetPerson(swapi_pb2.GetPersonRequest(id=2))
 response = stub.GetPerson(swapi_pb2.GetPersonRequest(id=3))
 ```
-para modificar inputs en clientAuto modificar dataset_id.csv
+-para modificar inputs en clientAuto modificar dataset_id.csv
